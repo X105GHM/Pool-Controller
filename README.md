@@ -38,7 +38,8 @@ This repository contains the firmware running on an ESP32-based Pool Controller 
 
 ## Gallery
 
-![Controller Front](assets/WhatsApp%20Image%202025-07-26%20at%2018.36.41%20(1).jpeg)
-![Controller Back](assets/WhatsApp%20Image%202025-07-26%20at%2018.36.41.jpeg)
-![Wiring Top](assets/WhatsApp%20Image%202025-07-26%20at%2018.36.42%20(1).jpeg)
-![Wiring Bottom](assets/WhatsApp%20Image%202025-07-26%20at%2018.36.42.jpeg)
+![Pool Controller 1](https://raw.githubusercontent.com/X105GHM/Pool-Controller/assets/WhatsApp%20Image%202025-07-26%20at%2018.36.41%20(1).jpeg)
+![Pool Controller 2](https://raw.githubusercontent.com/X105GHM/Pool-Controller/assets/WhatsApp%20Image%202025-07-26%20at%2018.36.41.jpeg)
+![Pool Controller 3](https://raw.githubusercontent.com/X105GHM/Pool-Controller/assets/WhatsApp%20Image%202025-07-26%20at%2018.36.42%20(1).jpeg)
+![Pool Controller 4](https://raw.githubusercontent.com/X105GHM/Pool-Controller/assets/WhatsApp%20Image%202025-07-26%20at%2018.36.42.jpeg)
+
