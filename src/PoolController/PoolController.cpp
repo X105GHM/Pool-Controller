@@ -24,16 +24,20 @@ void PoolController::begin()
     pumpRelay.begin();
     freezeRelay.begin();
     fanRelay.begin();
-    const uint8_t WIFI_CHANNEL = 11;
-    comm.begin(GATEWAY_MAC, WIFI_CHANNEL);
-    comm.setReceiveCallback([this](const ControlCommand &c)
-                            { onControlCommand(c); });
+    const uint8_t START_CHANNEL = 1;
+    comm.begin(GATEWAY_MAC, START_CHANNEL);
+    comm.setReceiveCallback([this](const ControlCommand &c){ onControlCommand(c); });
+   // comm.discoverPeer();
 }
+
 
 void PoolController::update()
 {
-    if (millis() - lastRecvTime > CONNECTION_TIMEOUT_MS)
-        failSafe();
+   // if (comm.millisSinceHeard() > CONNECTION_TIMEOUT_MS) {
+   //     failSafe();
+   //     comm.discoverPeer();
+   // }
+
     float tIn, tOut, rms;
     readSensors(tIn, tOut, rms);
     PoolData d;
@@ -45,23 +49,16 @@ void PoolController::update()
     d.fanOn = fanRelay.isOn();
     memcpy(d.waveform, waveform, sizeof(waveform));
     comm.sendStatus(d);
-    Serial.printf("Temp In: %.2f °C, Temp Out: %.2f °C, RMS: %.2f A\n", tIn, tOut, rms);
+    Serial.printf("Temp In: %.2f °C, Temp Out: %.2f °C, RMS: %.2f A (ch=%u)\n", tIn, tOut, rms, comm.currentChannel());
 }
 
 void PoolController::onControlCommand(const ControlCommand &c)
 {
-    lastRecvTime = millis();
     switch (c.cmdType)
     {
-    case CommandType::Pump:
-        c.turnOn ? pumpRelay.on() : pumpRelay.off();
-        break;
-    case CommandType::Freeze:
-        c.turnOn ? freezeRelay.on() : freezeRelay.off();
-        break;
-    case CommandType::Fan:
-        c.turnOn ? fanRelay.on() : fanRelay.off();
-        break;
+    case CommandType::Pump:   c.turnOn ? pumpRelay.on()   : pumpRelay.off();   break;
+    case CommandType::Freeze: c.turnOn ? freezeRelay.on() : freezeRelay.off(); break;
+    case CommandType::Fan:    c.turnOn ? fanRelay.on()    : fanRelay.off();    break;
     }
 }
 
